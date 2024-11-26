@@ -1,0 +1,5 @@
+/home/ken/Gitee_Codes/ibmscppbackend/cmake-build-debug/CMakeFiles/ibmscppbackend.dir
+/home/ken/Gitee_Codes/ibmscppbackend/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/ken/Gitee_Codes/ibmscppbackend/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/ken/Gitee_Codes/ibmscppbackend/cmake-build-debug/CMakeFiles/ibmscppbackend_autogen_timestamp_deps.dir
+/home/ken/Gitee_Codes/ibmscppbackend/cmake-build-debug/CMakeFiles/ibmscppbackend_autogen.dir
