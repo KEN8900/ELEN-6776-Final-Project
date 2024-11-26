@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_ibmscppbackend_FILE /home/ken/Gitee_Codes/ibmscppbackend/cmake-build-debug/ibmscppbackend)
+set(__QT_DEPLOY_TARGET_ibmscppbackend_TYPE EXECUTABLE)
