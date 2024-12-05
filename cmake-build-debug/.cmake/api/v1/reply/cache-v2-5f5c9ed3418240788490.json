@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/ken/Gitee_Codes/ibmscppbackend/cmake-build-debug"
+			"value" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -79,7 +79,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "28"
+			"value" : "30"
 		},
 		{
 			"name" : "CMAKE_CACHE_PATCH_VERSION",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "1"
+			"value" : "5"
 		},
 		{
 			"name" : "CMAKE_COLOR_DIAGNOSTICS",
@@ -543,7 +543,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/ken/Gitee_Codes/ibmscppbackend/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -615,7 +615,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/ken/Gitee_Codes/ibmscppbackend"
+			"value" : "/home/ken/Github_Codes/ELEN-6776-Final-Project"
 		},
 		{
 			"name" : "CMAKE_INSTALL_BINDIR",
@@ -1111,7 +1111,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "ibmscppbackend"
+			"value" : "mqtt_multi_thread"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1155,7 +1155,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/ken/JetBrains_Software/CLion-2024.1.4/clion-2024.1.4/bin/cmake/linux/x64/share/cmake-3.28"
+			"value" : "/home/ken/JetBrains_Software/CLion-2024.1.4/clion-2024.1.4/bin/cmake/linux/x64/share/cmake-3.30"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -3975,7 +3975,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/ken/Gitee_Codes/ibmscppbackend/cmake-build-debug"
+			"value" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug"
 		},
 		{
 			"name" : "ibmscppbackend_IS_TOP_LEVEL",
@@ -3999,7 +3999,43 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/ken/Gitee_Codes/ibmscppbackend"
+			"value" : "/home/ken/Github_Codes/ELEN-6776-Final-Project"
+		},
+		{
+			"name" : "mqtt_multi_thread_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug"
+		},
+		{
+			"name" : "mqtt_multi_thread_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "mqtt_multi_thread_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/ken/Github_Codes/ELEN-6776-Final-Project"
 		}
 	],
 	"kind" : "cache",

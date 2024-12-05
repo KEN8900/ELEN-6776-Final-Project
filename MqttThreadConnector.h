@@ -16,14 +16,19 @@ public:
                                  int brokerPort);
     ~MqttThreadConnector() override;
     [[nodiscard]] QString getThreadId() const;
+
+    // a function that lets the outside know whether this is the specific thread they want to look for
     [[nodiscard]] bool isYou(const QString& strThreadId) const;
 
-    void reqStart(int _workTimeMS=500);  // mainThread requires the subthread to run
-    void reqStop(int stopTimeMS=5000);   // mainThread requires the subthread to stop
+    // mainThread makes the subthread to run. Runtime can modify here. Unit: millisecond.
+    void reqStart(int _workTimeMS=500);
 
-    bool isWorking(int maxBusyTimeMS=10000); // a function to let the outside check the working status
+    // mainThread makes the subthread to stop. Stop time can modify here. Unit: millisecond.
+    void reqStop(int stopTimeMS=5000);
 
-    [[nodiscard]] QString toString() const; // To print out some useful info
+    bool isWorking(int maxBusyTimeMS=10000); // a function that lets the outside check the working status
+
+    [[nodiscard]] QString toString() const; // To print out some useful informations
 
     enum connectionState{
         closed=0,
@@ -35,7 +40,7 @@ public:
 
 protected:
     //subclass must override this virtual method.
-    virtual void onMessageReceived(const QByteArray &message, const QMqttTopicName &url); //Reader
+    virtual void onMessageReceived(const QByteArray& message, const QMqttTopicName& url); //Reader
 
     virtual void getSubscribeInfo(QString& url, quint8& qos);
     virtual void getPublishInfo(QString& url, quint8& qos, QByteArray& msg);
@@ -60,8 +65,8 @@ private:
     void doSubscribe();
     void doPublish();
 
-    void setLivingTime();                //Critical data
-    QDateTime getLivingTime();           //critical data
+    void setLivingTime();                //Critical data; need mutex
+    QDateTime getLivingTime();           //critical data; need mutex
     bool threadNeedExit();
     void setThreadExit();
 

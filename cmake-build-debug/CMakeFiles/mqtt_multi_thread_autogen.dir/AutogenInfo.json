@@ -1,5 +1,5 @@
 {
-	"BUILD_DIR" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/ibmscppbackend_autogen",
+	"BUILD_DIR" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/mqtt_multi_thread_autogen",
 	"CMAKE_BINARY_DIR" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug",
 	"CMAKE_CURRENT_BINARY_DIR" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug",
 	"CMAKE_CURRENT_SOURCE_DIR" : "/home/ken/Github_Codes/ELEN-6776-Final-Project",
@@ -137,8 +137,8 @@
 	],
 	"CMAKE_SOURCE_DIR" : "/home/ken/Github_Codes/ELEN-6776-Final-Project",
 	"CROSS_CONFIG" : false,
-	"DEP_FILE" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/ibmscppbackend_autogen/deps",
-	"DEP_FILE_RULE_NAME" : "ibmscppbackend_autogen/timestamp",
+	"DEP_FILE" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/mqtt_multi_thread_autogen/deps",
+	"DEP_FILE_RULE_NAME" : "mqtt_multi_thread_autogen/timestamp",
 	"HEADERS" : 
 	[
 		[
@@ -167,8 +167,8 @@
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/ibmscppbackend_autogen/include",
-	"MOC_COMPILATION_FILE" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/ibmscppbackend_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/mqtt_multi_thread_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/mqtt_multi_thread_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_MQTT_LIB", "QT_NETWORK_LIB" ],
 	"MOC_DEPEND_FILTERS" : 
 	[
@@ -212,17 +212,17 @@
 		"-c",
 		"/home/ken/JetBrains_Software/CLion-2024.1.4/clion-2024.1.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/ibmscppbackend_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/mqtt_multi_thread_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
 	"PARALLEL" : 8,
-	"PARSE_CACHE_FILE" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/CMakeFiles/ibmscppbackend_autogen.dir/ParseCache.txt",
+	"PARSE_CACHE_FILE" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/CMakeFiles/mqtt_multi_thread_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "/home/ken/Qt/6.7.2/gcc_64/./libexec/moc",
 	"QT_UIC_EXECUTABLE" : "",
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 7,
-	"SETTINGS_FILE" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/CMakeFiles/ibmscppbackend_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "/home/ken/Github_Codes/ELEN-6776-Final-Project/cmake-build-debug/CMakeFiles/mqtt_multi_thread_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
 		[
