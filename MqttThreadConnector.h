@@ -20,15 +20,15 @@ public:
     // a function that lets the outside know whether this is the specific thread they want to look for
     [[nodiscard]] bool isYou(const QString& strThreadId) const;
 
-    // mainThread makes the subthread to run. Runtime can modify here. Unit: millisecond.
+    // mainThread makes the sub-thread to run. Runtime can modify here. Unit: millisecond.
     void reqStart(int _workTimeMS=500);
 
-    // mainThread makes the subthread to stop. Stop time can modify here. Unit: millisecond.
+    // mainThread makes the sub-thread to stop. Stop time can modify here. Unit: millisecond.
     void reqStop(int stopTimeMS=5000);
 
     bool isWorking(int maxBusyTimeMS=10000); // a function that lets the outside check the working status
 
-    [[nodiscard]] QString toString() const; // To print out some useful informations
+    [[nodiscard]] QString getInfo() const; // To print out some useful information
 
     enum connectionState{
         closed=0,
@@ -40,7 +40,7 @@ public:
 
 protected:
     //subclass must override this virtual method.
-    virtual void onMessageReceived(const QByteArray& message, const QMqttTopicName& url); //Reader
+    virtual void onMessageReceived(const QByteArray& message, const QMqttTopicName& url); //Read
 
     virtual void getSubscribeInfo(QString& url, quint8& qos);
     virtual void getPublishInfo(QString& url, quint8& qos, QByteArray& msg);
@@ -48,8 +48,8 @@ protected:
     virtual void onDataSendStart(qint32 id, const QString& url, const QByteArray& msg);
     virtual void onDataSentFinish(qint32 id);
 
-    // Reader/Writer: client.subscribe(url, qos); client.publish(url, message, qos, false);
-    // Writer: quint32 id = client.publish(url, message, qos, false);
+    // Read/Write: client.subscribe(url, qos); client.publish(url, message, qos, false);
+    // Write: quint32 id = client.publish(url, message, qos, false);
 
 private:
     connectionState state;
@@ -76,9 +76,9 @@ private:
 //    Qt::HANDLE threadId;
     QString threadId;
 
-    QDateTime livingTime;               //Critical data
+    QDateTime livingTime;               //Critical data; need mutex
     QMutex mutex;
     QMqttClient* threadClient= nullptr;          //ref the client created in stack of sub-thread by the run method
     QTimer* threadTimer= nullptr;
-    int workTimeMS = 500;                       //default 500ms
+    int workTimeMS = 500;                       //default 500 milliseconds; can be overwritten by _workTimeMS above
 };

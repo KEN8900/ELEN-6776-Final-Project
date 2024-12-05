@@ -72,7 +72,7 @@ void MqttThreadPool::killDeadThread() {
             //qDebug() << "***** threadId= " << pThread->getThreadId();
             continue;
         }
-        qDebug() << "\t\t" << mainThreadId << " (Read Thread Pool) is ready to kill: " << rThread->toString();
+        qDebug() << "\t\t" << mainThreadId << " (Read Thread Pool) is ready to kill: " << rThread->getInfo();
         toKillRead.append(rThread); // readThreadList [0x15, 0x17, 0x18, 0x23]
     }
 
@@ -81,7 +81,7 @@ void MqttThreadPool::killDeadThread() {
             //qDebug() << "***** threadId= " << pThread->getThreadId();
             continue;
         }
-        qDebug() << "\t\t" << mainThreadId << " (Write Thread Pool) is ready to kill: " << wThread->toString();
+        qDebug() << "\t\t" << mainThreadId << " (Write Thread Pool) is ready to kill: " << wThread->getInfo();
         toKillWrite.append(wThread); // readThreadList [0x15, 0x17, 0x18, 0x23]
     }
 
