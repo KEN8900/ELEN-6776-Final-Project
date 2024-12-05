@@ -18,47 +18,46 @@ MqttThreadConnector::MqttThreadConnector(QObject *parent,
 
 MqttThreadConnector::~MqttThreadConnector() = default;
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void MqttThreadConnector::reqStart(int _workTimeMS/*=500*/) {
-// mainThread requests the sub-thread to run
+    // mainThread requests the sub-thread to run
     this->workTimeMS = _workTimeMS;
-    auto th = QThread::currentThreadId();
-    qDebug() << "MainThread(" << th << ") creates a sub-thread...";
+    auto mainThread = QThread::currentThreadId();
+    qDebug() << "MainThread(" << mainThread << ") creates a sub-thread...";
     QThread::start();
 }
 
 
 void MqttThreadConnector::reqStop(int stopTimeMS/*=5000*/) {
-    //mainThread wait/require the sub-thread to exit
+    // mainThread wait/require the sub-thread to exit
 
-    //Tells the thread's event loop to exit with a return code.
-    //After calling this function, the sub-thread ---leaves the event loop, at (1) --- and
+    // Tells the thread's event loop to exit with a return code.
+    // After calling this function, the sub-thread --- leaves the event loop, at (2.1) --- and
     // returns from the call to QEventLoop::exec().
     // The QEventLoop::exec() function returns returnCode.
     this->exit(); //(2.1)
 
-    auto th = QThread::currentThreadId();
+    auto mainThread = QThread::currentThreadId();
     // mainThread waits for the sub-thread to stop
     // Maximum 5 seconds.
     // If not success, force to terminate the thread
-    // (2.2)
     // Unit: ms
     if (wait(stopTimeMS)) {
-        qDebug() << "\t\t <<<<<<<<<< MainThread(" << th << ") successfully waited subThread(" << threadId
+        qDebug() << " <<<<<<<<<< MainThread(" << mainThread << ") successfully waited subThread(" << threadId
                  << ") to exit within " << stopTimeMS << "milliSeconds.";
         return;
     }
 
-    qDebug() << "\t\t xxxxxxxxxxxxx MainThread(" << th << ") waits subThread(" << threadId
+    qDebug() << " xxxxxxxxxx MainThread(" << mainThread << ") waits subThread(" << threadId
              << ") to stop exceeding 5 seconds, so force terminating subThread(" << threadId << ").";
     this->terminate();  //Thread did not exit in time, probably deadlocked, terminate it
     this->wait();       //Have to wait for fully terminated
-    qDebug() << "\t\t xxxxxxxxxxxxx MainThread(" << th << ") has terminated the subThread(" << threadId
+    qDebug() << " xxxxxxxxxx MainThread(" << mainThread << ") has terminated the subThread(" << threadId
              << ") successfully.";
 
 }
-////////////////////////////////////////////////////////////////////////////
-//                          business methods
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Methods
 void MqttThreadConnector::routineWork() {
     setLivingTime();
     doSubscribe();
@@ -92,7 +91,7 @@ void MqttThreadConnector::doPublish() {
     //template method: notify subclass
     this->onDataSendStart(id, url, msg);
 }
-///////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                          thread controls
 void MqttThreadConnector::run() {
     //sub-thread entry code, called by Operating System
@@ -184,8 +183,8 @@ bool MqttThreadConnector::isWorking(int maxBusyTimeMS/*==10*1000*/) {
     if (milliSecondsDiff <= maxBusyTimeMS) {
         return true;
     }
-    qDebug() << "WARNING: xxxxxxxxxxx MqttThreadConnector("<< threadId << ")::isWorking = FALSE; milliSecondsDiff = " << milliSecondsDiff <<
-             ", livingTime=" << living << ", current=" << current;
+    qDebug() << "WARNING: xxxxxxxxxx MqttThreadConnector("<< threadId << ")::isWorking = FALSE; milliSecondsDiff = "
+             << milliSecondsDiff << ", livingTime=" << living << ", current=" << current;
 
     return false;
 }
@@ -314,14 +313,14 @@ bool MqttThreadConnector::isYou(const QString& strThreadId) const {
 }
 
 
-QString MqttThreadConnector::toString() const {
-    QString tmp = threadId;
-    tmp += ", brokerIp= ";
-    tmp += brokerIp.toStdString();
-    tmp += ", brokerPort= ";
-    tmp += QString::number(brokerPort);
+QString MqttThreadConnector::getInfo() const {
+    QString info = threadId;
+    info += ", brokerIp= ";
+    info += brokerIp.toStdString();
+    info += ", brokerPort= ";
+    info += QString::number(brokerPort);
 
-    return tmp;
+    return info;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -338,7 +337,7 @@ void MqttThreadConnector::getSubscribeInfo(QString &url, quint8 &qos) {
 }
 
 void MqttThreadConnector::getPublishInfo(QString &url, quint8 &qos, QByteArray &msg) {
-    url = "";
+    url = "";   //default implementation
     qos = 0;
 }
 
