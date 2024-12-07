@@ -8,4 +8,4 @@ In this final project, we implemented multi-threading data control between the d
 
 
 
-More are in progress.
+Main classes used are [QMqttClient Class](https://doc.qt.io/qt-6/qmqttclient.html) and [QThread Class](https://doc.qt.io/qt-6/qthread.html).
