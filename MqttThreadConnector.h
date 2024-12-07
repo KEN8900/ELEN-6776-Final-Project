@@ -18,7 +18,7 @@ public:
     [[nodiscard]] QString getThreadId() const;
 
     // a function that lets the outside know whether this is the specific thread they want to look for
-    [[nodiscard]] bool isYou(const QString& strThreadId) const;
+    [[nodiscard]] bool specificThread(const QString& strThreadId) const;
 
     // mainThread makes the sub-thread to run. Runtime can modify here. Unit: millisecond.
     void reqStart(int _workTimeMS=500);
@@ -26,9 +26,11 @@ public:
     // mainThread makes the sub-thread to stop. Stop time can modify here. Unit: millisecond.
     void reqStop(int stopTimeMS=5000);
 
-    bool isWorking(int maxBusyTimeMS=10000); // a function that lets the outside check the working status
+    // a function that lets the outside check the working status
+    bool isWorking(int maxBusyTimeMS=10000);
 
-    [[nodiscard]] QString getInfo() const; // To print out some useful information
+    // To print out some useful information
+    [[nodiscard]] QString getInfo() const;
 
     enum connectionState{
         closed=0,

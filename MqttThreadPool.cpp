@@ -31,32 +31,32 @@ void MqttThreadPool::createThread() {
 
     //Create Read Thread
     for (int i=0; i < createReadThread; ++i) {
-        qDebug() << "\t\t" << mainThreadId << " ThreadPool ... create read thread: " << i;
+        qDebug() << "Read ThreadPool, controlled by (" << mainThreadId << "), ...... creates read thread: " << i;
 
-        auto t = new MqttReadThread(nullptr, brokerIp, brokerPort);
+        auto rt = new MqttReadThread(nullptr, brokerIp, brokerPort);
 
-        readThreadList.append(t);
+        readThreadList.append(rt);
         
         if (i == 0) {
-            t->reqStart(2000);
+            rt->reqStart(2000);
         }
         else
-            t->reqStart(500);
+            rt->reqStart(500);
     }
 
     //Create Write Thread
     for (int i=0; i < createWriteThread; ++i) {
-        qDebug() << "\t\t" << mainThreadId << " ThreadPool ... create write thread: " << i;
+        qDebug() << "Write ThreadPool, controlled by (" << mainThreadId << "), ...... creates write thread: " << i;
 
-        auto t = new MqttWriteThread(nullptr, brokerIp, brokerPort);
+        auto wt = new MqttWriteThread(nullptr, brokerIp, brokerPort);
 
-        writeThreadList.append(t);
+        writeThreadList.append(wt);
 
         if (i == 0) {
-            t->reqStart(2000);
+            wt->reqStart(2000);
         }
         else
-            t->reqStart(500);
+            wt->reqStart(500);
     }
 }
 
@@ -69,20 +69,20 @@ void MqttThreadPool::killDeadThread() {
 
     for (auto rThread: readThreadList) {
         if (rThread->isWorking(600)) {
-            //qDebug() << "***** threadId= " << pThread->getThreadId();
+            //qDebug() << "********** threadId= " << pThread->getThreadId();
             continue;
         }
-        qDebug() << "\t\t" << mainThreadId << " (Read Thread Pool) is ready to kill: " << rThread->getInfo();
-        toKillRead.append(rThread); // readThreadList [0x15, 0x17, 0x18, 0x23]
+        qDebug() << "Read ThreadPool, controlled by (" << mainThreadId << "), is ready to kill: " << rThread->getInfo();
+        toKillRead.append(rThread);
     }
 
     for (auto wThread: writeThreadList) {
         if (wThread->isWorking(600)) {
-            //qDebug() << "***** threadId= " << pThread->getThreadId();
+            //qDebug() << "********** threadId= " << pThread->getThreadId();
             continue;
         }
-        qDebug() << "\t\t" << mainThreadId << " (Write Thread Pool) is ready to kill: " << wThread->getInfo();
-        toKillWrite.append(wThread); // readThreadList [0x15, 0x17, 0x18, 0x23]
+        qDebug() << "Write ThreadPool, controlled by (" << mainThreadId << "), is ready to kill: " << wThread->getInfo();
+        toKillWrite.append(wThread);
     }
 
     //remove toKillRead threads from readThreadList
@@ -137,8 +137,8 @@ void MqttThreadPool::simpleTest() {
         killDeadThread();
     }
 
-    qDebug() << "------------------ KILL ALL -------------------------------------";
+    qDebug() << "-------------------- KILL ALL --------------------";
     killAllThread();
-    qDebug() << "\t\t" << "mainThread id:" << mainThreadId << "... Thread Pool stop all threads..." << "\n";
+    qDebug() << "Read and Write Thread Pool, controlled by (\" << mainThreadId << \"), stop all threads......" << "\n";
 }
 
