@@ -23,7 +23,7 @@ void MqttThreadConnector::reqStart(int _workTimeMS/*=500*/) {
     // mainThread requests the sub-thread to run
     this->workTimeMS = _workTimeMS;
     auto mainThread = QThread::currentThreadId();
-    qDebug() << "MainThread(" << mainThread << ") creates a sub-thread...";
+    qDebug() << "MainThread (" << mainThread << ") creates a sub-thread......";
     QThread::start();
 }
 
@@ -43,7 +43,7 @@ void MqttThreadConnector::reqStop(int stopTimeMS/*=5000*/) {
     // If not success, force to terminate the thread
     // Unit: ms
     if (wait(stopTimeMS)) {
-        qDebug() << " <<<<<<<<<< MainThread(" << mainThread << ") successfully waited subThread(" << threadId
+        qDebug() << "<<<<<<<<<< MainThread(" << mainThread << ") successfully waited subThread(" << threadId
                  << ") to exit within " << stopTimeMS << "milliSeconds.";
         return;
     }
@@ -65,8 +65,9 @@ void MqttThreadConnector::routineWork() {
 }
 
 void MqttThreadConnector::doSubscribe() {
+    //default implementation
     QString url = "";
-    quint8 qos;
+    quint8 qos = 0;
 
     //template method: call subclass
     this->getSubscribeInfo(url, qos);
@@ -78,9 +79,11 @@ void MqttThreadConnector::doSubscribe() {
 
 void MqttThreadConnector::doPublish() {
     //Do we need to write something?
+
+    //default implementation
     QString url = "";
-    quint8 qos;
-    QByteArray msg;
+    quint8 qos = 0;
+    QByteArray msg = "";
 
     //template method: call subclass
     this->getPublishInfo(url, qos, msg);
@@ -96,13 +99,17 @@ void MqttThreadConnector::doPublish() {
 void MqttThreadConnector::run() {
     //sub-thread entry code, called by Operating System
     QThread::setTerminationEnabled(true);
-    auto tId = QThread::currentThreadId();       //record the id of the sub-thread.
+
+    //record the id of the sub-thread
+    auto tId = QThread::currentThreadId();
+
+    // change QPointer to printable QString
     threadId = QString::number(reinterpret_cast<quintptr>(tId), 16).toUpper();
 
     //CREATE QMqttClient in the stack of the sub-thread, so that
     //the sub-thread can receive the mqtt events in its event loop.
     QMqttClient client;
-    this->threadClient = &client;               // yjf.add.
+    this->threadClient = &client;
     client.setHostname(brokerIp);
     client.setPort(brokerPort);
     installEventHandle(client);
@@ -124,7 +131,7 @@ void MqttThreadConnector::run() {
 
     //subThread exits from the above LOOP:
     // (2.1), (2.2) make the subThread stop here.
-    qDebug() << "<<<<<<<<<<<< SubThread(" << threadId << ") stopped successfully.";
+    qDebug() << "<<<<<<<<<< SubThread(" << threadId << ") stopped successfully.";
 }
 
 void MqttThreadConnector::setLivingTime() {
@@ -158,7 +165,7 @@ bool MqttThreadConnector::threadNeedExit() {
 void MqttThreadConnector::setThreadExit() {
     // stop event senders
     this->threadTimer->stop();
-//    this->threadClient->disconnectFromHost();     //WARNING: call it may cause process segment error.
+    //this->threadClient->disconnectFromHost();     //WARNING: call it may cause process segment error.
 
     //subThread call this func
     mutex.lock();
@@ -188,18 +195,18 @@ bool MqttThreadConnector::isWorking(int maxBusyTimeMS/*==10*1000*/) {
 
     return false;
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 MQTT communication logic
 
 void MqttThreadConnector::installEventHandle(QMqttClient &client) {
 
-    install_errorChanged(client);  //must put first, to check the states of the broker.
+    install_errorChanged(client);  //must put first, to check the states of the mqtt broker.
 
     install_stateChanged(client);
     install_messageReceived(client);
     install_messageStatusChanged(client);
 
-    qDebug() << threadId << ": try to connectToHost for the first time ......";
+    qDebug() << threadId << ": try to connectToHost for the first time......";
     client.connectToHost();
 }
 
@@ -214,7 +221,7 @@ void MqttThreadConnector::install_errorChanged(QMqttClient &client) {
 
                          this->setLivingTime();    //refresh the living time (critical data)
                          if (state == connectionState::firstConnect) {
-                             qDebug() << threadId << ": xxxxxxxxxxxxxxxxx state = firstConnect...find a SERIOUS: "
+                             qDebug() << threadId << ": xxxxxxxxxx state = firstConnect...... find a SERIOUS: "
                                       << error << ", thread exit.";
                              this->setThreadExit();
                          }
@@ -233,7 +240,7 @@ void MqttThreadConnector::install_stateChanged(QMqttClient& client) {
                          switch (clientState) {
                              default:
                                  qDebug() << threadId << ": received unknown clientState: " << clientState
-                                          << " in my state: " << state;
+                                          << " in my current state: " << state;
                              case QMqttClient::Disconnected:
                                  state = connectionState::closed;
                                  client.connectToHost();            //Start to connect to the broker
@@ -293,7 +300,7 @@ void MqttThreadConnector::install_messageStatusChanged(QMqttClient& client) {
                                 qDebug() << "The client received a message for one of its subscriptions. Qos 1 & 2.";
                                 return;
                             case QMqtt::MessageStatus::Received:
-                                qDebug() << "A message has been received. QoS 2: ";
+                                qDebug() << "A message has been received. QoS 2.";
                                 return;
                             case QMqtt::MessageStatus::Released:
                                 qDebug() << "A message has been released. QoS 2.";
@@ -308,7 +315,7 @@ QString MqttThreadConnector::getThreadId() const {
     return threadId;
 }
 
-bool MqttThreadConnector::isYou(const QString& strThreadId) const {
+bool MqttThreadConnector::specificThread(const QString& strThreadId) const {
     return this->threadId == strThreadId;
 }
 
@@ -323,10 +330,10 @@ QString MqttThreadConnector::getInfo() const {
     return info;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  subclass override the following methods:
 void MqttThreadConnector::onMessageReceived(const QByteArray &message, const QMqttTopicName &url) {
-    qDebug() << "=================> MqttThreadConnector(" << threadId << ")::messageReceived====> msg = " << message
+    qDebug() << "==========> MqttThreadConnector(" << threadId << ")::messageReceived ==========> msg = " << message
              << ", url = " << url
              << "\n";
 }

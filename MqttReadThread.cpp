@@ -14,14 +14,12 @@ MqttReadThread::MqttReadThread(QObject *parent,
 MqttReadThread::~MqttReadThread() = default;
 
 void MqttReadThread::onMessageReceived(const QByteArray &message, const QMqttTopicName &url) {
-    //TODO: write the message into DB.
-    qDebug() << "=================> MqttReadThread(" << getThreadId() << ")::messageReceived====> msg = " << message
+    qDebug() << "==========> MqttReadThread(" << getThreadId() << ")::messageReceived ==========> msg = " << message
              << ", topic = " << url
              << "\n";
 }
 
 void MqttReadThread::getSubscribeInfo(QString& url, quint8& qos) {
-    //TODO: get the subscribe info from DB
     url = "test/topic";
     qos = 0;
 }
