@@ -27,7 +27,6 @@ void MqttThreadConnector::reqStart(int _workTimeMS/*=500*/) {
     QThread::start();
 }
 
-
 void MqttThreadConnector::reqStop(int stopTimeMS/*=5000*/) {
     // mainThread wait/require the sub-thread to exit
 
@@ -39,7 +38,7 @@ void MqttThreadConnector::reqStop(int stopTimeMS/*=5000*/) {
 
     auto mainThread = QThread::currentThreadId();
     // mainThread waits for the sub-thread to stop
-    // Maximum 5 seconds.
+    // Default: 5 seconds.
     // If not success, force to terminate the thread
     // Unit: ms
     if (wait(stopTimeMS)) {
@@ -117,7 +116,7 @@ void MqttThreadConnector::run() {
     //Timer to check the living for a certain period of time
     QTimer timer;
     this->threadTimer = &timer;
-    // This method is called every 500 ms
+    // This method is called in period of "timer"
     QObject::connect(&timer, &QTimer::timeout,
                      [&, this]() {
                             this->routineWork();
@@ -173,7 +172,7 @@ void MqttThreadConnector::setThreadExit() {
     mutex.unlock();
 }
 
-bool MqttThreadConnector::isWorking(int maxBusyTimeMS/*==10*1000*/) {
+bool MqttThreadConnector::isWorking(int maxBusyTimeMS/*=10000*/) {
     //MainThread call this function
 
     //1) Does this subThread encounter an ERROR that must stop running?
