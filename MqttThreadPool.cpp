@@ -56,7 +56,7 @@ void MqttThreadPool::createThread() {
             wt->reqStart(2000);
         }
         else
-            wt->reqStart(500);
+            wt->reqStart(2000);
     }
 }
 
