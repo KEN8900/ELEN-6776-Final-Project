@@ -1,6 +1,3 @@
-//
-// Created by ken on 8/16/24.
-//
 #include <QString>
 
 #include "MqttWriteThread.h"

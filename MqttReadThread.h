@@ -1,7 +1,3 @@
-//
-// Created by ken on 8/2/24.
-//
-
 #pragma once
 #include "MqttThreadConnector.h"
 
