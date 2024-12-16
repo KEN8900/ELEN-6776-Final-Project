@@ -1,7 +1,3 @@
-//
-// Created by ken on 8/14/24.
-//
-
 #pragma once
 #include <QThread>
 #include <QMutex>
@@ -57,7 +53,7 @@ private:
     connectionState state;
 
     void run() override; // sub-thread entry code, called by Operating System
-    void installEventHandle(QMqttClient &client);
+    void installEventHandle(QMqttClient& client);
     void install_errorChanged(QMqttClient& client);
     void install_stateChanged(QMqttClient& client);
     void install_messageReceived(QMqttClient& client);
@@ -75,7 +71,7 @@ private:
     QString brokerIp;
     int brokerPort;
 
-//    Qt::HANDLE threadId;
+    //Qt::HANDLE threadId;
     QString threadId;
 
     QDateTime livingTime;               //Critical data; need mutex

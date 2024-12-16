@@ -1,6 +1,3 @@
-//
-// Created by ken on 8/14/24.
-//
 #include <QDateTime>
 #include <sstream>
 #include "MqttThreadConnector.h"
