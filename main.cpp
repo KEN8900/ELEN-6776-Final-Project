@@ -9,7 +9,7 @@
 
 using namespace std;
 
- int main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
 
      QCoreApplication app(argc, argv);
 
@@ -17,5 +17,4 @@ using namespace std;
      mtp.simpleTest();
 
      return QCoreApplication::exec();
- }
-
+}

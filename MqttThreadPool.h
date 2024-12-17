@@ -1,7 +1,3 @@
-//
-// Created by ken on 8/16/24.
-//
-
 #pragma once
 
 class MqttThreadPool {
